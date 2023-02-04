@@ -8,4 +8,5 @@ class FunfundingApplication
 
 fun main(args: Array<String>) {
 	runApplication<FunfundingApplication>(*args)
+
 }
