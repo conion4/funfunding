@@ -1,0 +1,60 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+    types: [opened, reopened, synchronize]
+    paths-ignore: ['.*ignore', '.*rc', '*.md', '.idea/**', 'doc/**', '.editorconfig', '.java-version', '.github/**']
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, reopened, synchronize]
+    paths-ignore: ['.*ignore', '.*rc', '*.md', '.idea/**', 'doc/**', '.editorconfig', '.java-version', '.github/**']
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # 워크플로우 실행 전 브렌치 checkout
+    - uses: actions/checkout@v3
+    
+    # JDK 11 설정
+    - name: 🚀 Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    
+    # Gradle 빌드
+    - name: 🚀 Build with Gradle
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: build
+
+    # Slack 메시지 전송
+    - name: 🚀 Notify slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: Sloth Backend - dev
+        fields: repo,message,commit,author,eventName,took
+        mention: here
+        if_mention: failure,cancelled
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.CONION4_SLACK_WEBHOOK_URL }}
+      if: always()    
