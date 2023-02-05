@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController
 class HelloController {
     @GetMapping()
     fun index() : ResponseEntity<String>{
-        return ResponseEntity.ok("안녕하세요!")
+        return ResponseEntity.ok("어드민 안녕하세요!")
     }
 }
