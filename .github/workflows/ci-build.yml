@@ -54,7 +54,7 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        author_name: Sloth Backend - dev
+        author_name: 🤖갓홍준의 빌드 노예
         fields: repo,commit,author,took
         mention: here
         if_mention: failure,cancelled
