@@ -1,1 +1,15 @@
 
+spring:
+  profiles:
+    include:
+      domain
+      core
+      api-common
+
+---
+spring:
+  config.activate.on-profile: local
+
+---
+spring:
+  config.activate.on-profile: dev

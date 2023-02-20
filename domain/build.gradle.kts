@@ -9,38 +9,35 @@ bootJar.enabled = false
 jar.enabled = true
 
 plugins {
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-    kotlin("plugin.jpa")
-    kotlin("plugin.allopen")
-    kotlin("plugin.spring")
-    id("java-test-fixtures")
+  id("org.springframework.boot")
+  id("io.spring.dependency-management")
+  kotlin("plugin.jpa")
+  kotlin("plugin.allopen")
+  kotlin("plugin.spring")
+  id("java-test-fixtures")
 }
 
 allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.Embeddable")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("org.springframework.stereotype.Service")
+  annotation("javax.persistence.Entity")
+  annotation("javax.persistence.Embeddable")
+  annotation("javax.persistence.MappedSuperclass")
+  annotation("org.springframework.stereotype.Service")
 }
 
 dependencies {
-    implementation(project(":core"))
+  implementation(project(":core"))
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    implementation("com.querydsl:querydsl-jpa")
-    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
+  implementation("com.querydsl:querydsl-jpa")
+  kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.flywaydb:flyway-core")
+  implementation("com.h2database:h2")
 
-    runtimeOnly("com.h2database:h2")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 kotlin.sourceSets.main {
-    setBuildDir("$buildDir")
+  setBuildDir("$buildDir")
 }
